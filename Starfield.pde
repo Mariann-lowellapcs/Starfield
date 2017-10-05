@@ -1,32 +1,46 @@
-=/*interface Particle
+NormalParticle[] aBunch; //now it can hold both Normal and Oddball
+void setup()
+
+ {
+  size(500,500);
+  aBunch =new NormalParticle[500];
+for (int i=0; i<aBunch.length;i++)
+  aBunch[i] =new NormalParticle();
+}
+//aBunch[0] = new Oddball();
+//aBunch[1] = new Jumbo();
+
+void draw()
 {
-void show();
-  void move();
+   background(0);
+  for (int i=0;i<aBunch.length;i++)
+  {
+    aBunch[i].move();
+    aBunch[i].show();
+  }
 }
 
-class Oddball implements Particle
-int myX,myY;
-Oddball()
-{
-  myX=250;
-  myY=50;
-}
-public void show()
-{
- rect(myX,myY,30,30);
-}
-public void move()
-{
-  myX += mySpeed * Math.cos(myDir);
-  myY += mySpeed * Math.sin(myDir);
-}
 
-class JumboParticle //uses inheritance
+class NormalParticle
 {
- 
+  int Color,myX,myY;
+  double Angle, Speed;
+  NormalParticle()
+  {
+    Color = ((int)(Math.random()*365));
+    Speed = 2;
+    Angle = 100;
+    myX = 250;
+    myY = 250;
+  }
   public void show()
   {
-    fill(myColor);
-  ellipse(50,50,50,50);
+    ellipse(myX, myY, 10,10);
   }
-*/
+  public void move()
+  {
+    myX += Speed * 2;
+  myY += Speed *2;
+  
+  } 
+}  
