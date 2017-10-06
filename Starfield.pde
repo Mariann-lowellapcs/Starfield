@@ -1,58 +1,86 @@
-NormalParticle[] aBunch; 
-JumboParticle []bob;
-//now it can hold both Normal and Oddball
+Particle[] star;
+
 void setup()
-
- {
-  size(500,500);
-  aBunch = new NormalParticle[200];
-  bob = new JumboParticle[50];
-  for (int i=0; i<aBunch.length;i++)
 {
- aBunch[i] =new NormalParticle();
-}
-for(int i =0;i<bob.length;i++)
-{
-  bob[i] = new JumboParticle[50];
-}
- }
-//aBunch[0] = new Oddball();
-//aBunch[1] = new Jumbo();
+  background(0);
+  size(500, 500);
+  star = new Particle[100];
+  for(int i = 0; i<star.length; i ++)
+  {
 
+  star[i] = new NormalParticle();
+  }//your code here
+  star[0] = new OddballParticle();
+  star[1] = new JumboParticle();
+}
 void draw()
 {
-   background(0);
-  for (int i=0;i<aBunch.length;i++)
+  background(0);
+  for(int i = 0; i<star.length; i ++)
   {
-    aBunch[i].move();
-    aBunch[i].show();
-  }
-  for (int i = 0;i<bob.length;i++)
-  bob[i].show();
-  bob[i].move();
+    star[i].show();
+    star[i].move();
+    // stars[298].show();
+    // stars[298].move();
+  } 
+  //your code here
 }
 
 
-class NormalParticle
+
+class NormalParticle implements Particle
 {
   int Color;
-  double Angle,Speed,myX,myY;
+  double myX, myY, Angle, Speed, size; 
   NormalParticle()
   {
-    Color = 255;
-    Speed = 10;
-    Angle = (Math.random()*100);
+    Angle = Math.random()*60;
+    Speed = 7;
     myX = 250;
-    myY = 250;
+    myY = 250; 
+    size = 20;
+   Color= 255;
   }
-   void show()
+ 
+public void move()
   {
-    fill(255,255,102);
+  myX += Math.cos(Angle)*Speed;
+  myY  += Math.sin(Angle) *Speed;
+  if(myX>500 || myX<0 ||myY > 500|| myY <0)
+  {
+    myX =250;
+    myY=250;
+
+  }
+  }
+  public void show()
+  {
+   fill(255,255,102);
     ellipse(250,250,30,30);
     fill(Color,Color,Color);
-    ellipse((int)myX,(int)myY, 10,10);
+    ellipse((int)myX,(int)myY,20,20);
   }
-void move()
+}
+
+interface Particle
+{
+  public void show();
+  public void move(); 
+}
+
+class OddballParticle implements Particle //uses an interface
+{
+  double myX, myY, Angle, Speed, Size; 
+  OddballParticle()
+  {
+    Angle = 2 * Math.PI * Math.random();
+    Speed = 20;
+    myX = 300;
+    myY = 300; 
+    Size = 2;
+  }
+
+  public void move()
   {
     myX = myX + Math.cos(Angle)*Speed;
   myY = myY + Math.sin(Angle) *Speed;
@@ -61,42 +89,24 @@ void move()
     myX =250;
     myY=250;
   }
-  } 
-/*interface Particle
-{
-  public void show();
-  public void move();
-}  */
-class JumboParticle 
-{  
-  int Color;
-  double Angle,Speed,myX,myY;
- JumboParticle()
-  {
-    Color = 255;
-    Speed = 10;
-    Angle = (Math.random()*500);
-    myX = 250;
-    myY = 250;
   }
-  void show()
+
+  public void show()
   {
     fill(255,255,102);
     ellipse(250,250,30,30);
     fill(238,130,238);
-    ellipse((int)myX,(int)myY, 20,20);
+    rect((int)myX,(int)myY, 20,20);
   }
-  void move()
-  {
-    myX = myX + Math.cos(Angle)*Speed;
-  myY = myY + Math.sin(Angle) *Speed;
-  if(myX>500 || myX<0 ||myY > 500|| myY <0)
-  {
-    myX =250;
-    myY=250;
-  }
-
-  }
-
 }
+
+class JumboParticle extends NormalParticle //uses inheritance
+{
+  public void show()
+  {
+   fill(255,255,102);
+    ellipse(250,250,30,30);
+    fill(238,130,238);
+    ellipse((int)myX,(int)myY, 50,50);
+  }
 }
