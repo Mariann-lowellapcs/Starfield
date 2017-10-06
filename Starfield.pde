@@ -55,9 +55,10 @@ public void move()
   }
   public void show()
   {
+    noStroke();
    fill(255,255,102);
     ellipse(250,250,30,30);
-    fill(Color,Color,Color);
+    fill(162,42,42);
     ellipse((int)myX,(int)myY,20,20);
   }
 }
@@ -93,9 +94,12 @@ class OddballParticle implements Particle //uses an interface
 
   public void show()
   {
+    strokeWeight(0);
     fill(255,255,102);
     ellipse(250,250,30,30);
-    fill(238,130,238);
+    stroke(255,255,255);
+    strokeWeight(4);
+    noFill();
     rect((int)myX,(int)myY, 20,20);
   }
 }
@@ -104,6 +108,7 @@ class JumboParticle extends NormalParticle //uses inheritance
 {
   public void show()
   {
+    noStroke();
    fill(255,255,102);
     ellipse(250,250,30,30);
     fill(238,130,238);
